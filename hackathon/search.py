@@ -1,6 +1,7 @@
 from base64 import b64decode
 from io import BytesIO
 
+import re
 import speech_recognition as sr
 from flask import Blueprint, redirect, render_template, request
 from openai.error import AuthenticationError
@@ -64,7 +65,6 @@ def search():
         return render_template('error.html', error="Invalid API key for OpenAI. Please check your .env file.")
 
     # Check if the answer matches one of the services in the dictionary
-    answer: str = response.choices[0].text.strip()
     urls = re.findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+[/\w\d_?&=#%+()~.,!:-]*', answer)
     # print(urls)
     strlist = []
