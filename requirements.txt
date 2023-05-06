@@ -2,3 +2,7 @@ flask
 openai
 python-dotenv
 waitress
+SpeechRecognition
+typed-argument-parser
+pydub
+requests
