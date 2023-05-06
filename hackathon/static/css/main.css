@@ -6,3 +6,23 @@ h1 {
   color: #c8242c;
   margin-left: 20px;
 }
+
+#record {
+  background-color: red;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 1px 1px;
+  cursor: pointer;
+  max-width: 50%;
+  max-height: 15%;
+  border-radius: 50%;
+  left: 50px;
+  right: 50px;
+  position: relative;
+}

@@ -1,11 +1,13 @@
-import openai
+from base64 import b64decode
+from io import BytesIO
+
+import speech_recognition as sr
 from flask import Blueprint, redirect, render_template, request
 from openai.error import AuthenticationError
 
-from config import Config
+from hackathon.utils import ask_chat_gpt, speech_to_text
 
 search_bp = Blueprint('search', __name__)
-openai.api_key = Config.OPENAI_API_KEY
 
 
 # Dictionary mapping services to URLs
@@ -27,33 +29,33 @@ prompt = "I want you to act as a LaGuardia Community College mentor. You must be
 
 @search_bp.route('/search', methods=["GET", "POST"])
 def search():
-    available_services = [_.lower() for _ in services.keys()]
     if request.method == 'GET':
-        return render_template('index.html')
+        return redirect('/')
 
-    service = request.form["service"]
-    if service.lower() in available_services:
-        keyname = list(services.keys())[available_services.index(service.lower())]
-        return redirect(services[keyname])
+    available_services = [_.lower() for _ in services.keys()]
+    if "service" in request.form:
+        service = request.form["service"]
+        if service.lower() in available_services:
+            keyname = list(services.keys())[available_services.index(service.lower())]
+            return redirect(services[keyname])
 
-    if "internship" in service.lower():
-        return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources)
+        if "internship" in service.lower():
+            return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources)
+
+    if "audio_file" in request.form:
+        audio_base64 = request.form["audio_file"]
+        audio = BytesIO(b64decode(audio_base64))
+        try:
+            service = speech_to_text(audio)
+        except sr.UnknownValueError:
+            return render_template('error.html', error="Google Speech Recognition could not understand audio")
+        except sr.RequestError as e:
+            return render_template('error.html', error="Could not request results from Google Speech Recognition service; {0}".format(e))
 
     try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=prompt + "\nStudent question: " + service + "\n",
-            temperature=0.7,
-            max_tokens=256,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
-        )
+        answer = ask_chat_gpt(prompt + "\nStudent question: " + service + "\n")
     except AuthenticationError:
         return render_template('error.html', error="Invalid API key for OpenAI. Please check your .env file.")
-
-    # Extract the answer from the response
-    answer: str = response.choices[0].text.strip()
 
     # Check if the answer matches one of the services in the dictionary
     service_links = []
@@ -63,6 +65,7 @@ def search():
             keyname = list(services.keys())[available_services.index(word)]
             service_links.append((word.capitalize(), services[keyname]))
     service_links = list(set(service_links))
+    service_link_title = True if service_links else False
 
     # Render the template with the answer and service links
-    return render_template('search.html', answer=answer, service_link_title=True, service_links=service_links)
+    return render_template('search.html', answer=answer, service_link_title=service_link_title, service_links=service_links)
