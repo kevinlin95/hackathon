@@ -3,9 +3,9 @@ import pyaudio
 
 def speech_to_text():
   r = sr.Recognizer()
-
   # Use the microphone as the audio source
   with sr.Microphone() as source:
+      r.adjust_for_ambient_noise(source, duration=1)
       print("Speak something...")
       audio = r.listen(source)
 
@@ -17,4 +17,4 @@ def speech_to_text():
       return "Google Speech Recognition could not understand audio"
   except sr.RequestError as e:
       return "Could not request results from Google Speech Recognition service; {0}".format(e)
-    
+print(speech_to_text())
