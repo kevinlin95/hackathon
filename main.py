@@ -23,6 +23,7 @@ if __name__ == '__main__':
 
     pathlib.Path('ffmpeg').mkdir(exist_ok=True)
     platform_name = platform.system()
+    executable = None
     if platform_name == 'Windows':
         executable = pathlib.Path('ffmpeg/ffmpeg.exe')
         download_url = 'https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip'
@@ -30,7 +31,7 @@ if __name__ == '__main__':
         executable = pathlib.Path('ffmpeg/ffmpeg-darwin')
         download_url = 'https://evermeet.cx/ffmpeg/ffmpeg-6.0.zip'
 
-    if not executable.exists():
+    if executable and not executable.exists():
         print("FFmpeg not found, downloading...")
         import io
         import zipfile
