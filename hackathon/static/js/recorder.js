@@ -30,6 +30,10 @@ function createDownloadLink(blob) {
 
         form.appendChild(x);
         form.submit();
+
+        spinner.style.display = "block";
+        submitButton.disabled = true;
+        record.disabled = true;
     }
 
 }
@@ -47,4 +51,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
         gumStream.getAudioTracks()[0].stop();
         rec.exportWAV(createDownloadLink);
     }
+});
+
+const form = document.getElementById("form");
+const spinner = document.getElementById("spinner");
+const submitButton = document.getElementById("submit-button");
+
+form.addEventListener("submit", function() {
+    spinner.style.display = "block";
+    submitButton.disabled = true;
+    record.disabled = true;
 });

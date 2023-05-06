@@ -54,8 +54,8 @@ def search():
         audio_base64 = request.form["audio_file"]
         audio = BytesIO(b64decode(audio_base64))
         try:
-            language = models.LanguageModel.__dict__[language]
-            service = speech_to_text(audio, language)
+            speech_language = models.LanguageModel.__dict__[language]
+            service = speech_to_text(audio, speech_language)
         except sr.UnknownValueError:
             return render_template('error.html', error="Google Speech Recognition could not understand audio")
         except sr.RequestError as e:
