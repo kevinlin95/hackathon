@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Resources Page</title>
+	<style>
+		body {
+            text-align: center;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			background-color: #c8242c;
+			color: #fff;
+			text-align: center;
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+		h1 {
+			margin: 0;
+			font-size: 36px;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+		.container {
+			max-width: 960px;
+			margin: 0 auto;
+			padding: 0 20px;
+			box-sizing: border-box;
+		}
+		.card {
+			background-color: #fff;
+			border: 1px solid #ddd;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			padding: 20px;
+			margin-bottom: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		.card h2 {
+			margin-top: 0;
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+			margin-bottom: 10px;
+		}
+		.card p {
+			font-size: 16px;
+			text-align: justify;
+			margin-bottom: 20px;
+		}
+        @keyframes shake {
+          0% {
+            transform: translateX(0);
+          }
+          10% {
+            transform: translateX(-10px);
+          }
+          20% {
+            transform: translateX(10px);
+          }
+          30% {
+            transform: translateX(-10px);
+          }
+          40% {
+            transform: translateX(10px);
+          }
+          50% {
+            transform: translateX(-10px);
+          }
+          60% {
+            transform: translateX(10px);
+          }
+          70% {
+            transform: translateX(-10px);
+          }
+          80% {
+            transform: translateX(10px);
+          }
+          90% {
+            transform: translateX(-10px);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+
+        ul li,
+        ol li {
+          color: #fff;
+          display:block;
+          margin-bottom: 20px;
+          background-color: red;
+          border-radius: 10px;
+          font-weight: bold;
+          list-style: none;
+          padding: 10px;
+          cursor: pointer;
+          transition: transform 0.2s ease-in-out;
+        }
+
+        ul li:hover,
+        ol li:hover {
+          animation: shake 0.5s;
+          animation-iteration-count: 1;
+        }
+        a {
+            text-decoration: none;
+        }
+
+
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Our Resources</h1>
+	</header>
+	<div class="container">
+		<div class="card">
+			<h2>School Resources</h2>
+            <ul>
+              <li><a target="_blank" href="https://www.laguardia.edu/current-students/academic-help-tutoring/">Tutoring</a></li>
+              <li><a target="_blank" href="https://www.laguardia.edu/financialaid/">Finacial</a></li>
+              <li><a target="_blank" href="https://www.laguardia.edu/advising/">Academic Advising</a></li>
+              <li><a target="_blank" href="https://www.laguardia.edu/Career-Services/">Career Services</a></li>
+              <li><a target="_blank" href="https://www.laguardia.edu/mec/home/">Math, Engineering and Computer Science department</a></li>
+              <li><a target="_blank" href="https://www.laguardia.edu/writingcenter/">Writing Center</a></li>
+              <li><a target="_blank" href="https://www.laguardia.edu/academics/programs/api/meet-our-tutors/">Academic Peer Instruction</a></li>
+              <li><a target="_blank" href="https://www.laguardia.edu/wellnesscenter/">Wellness Center</a></li>
+              <li><a target="_blank" href="https://www.laguardia.edu/uploadedfiles/main_site/content/academics/academic_calendar/pdf/academic-calendar-2022-23.pdf">Academic Calender</a></li>
+            </ul>
+			<a href="#" target="_blank">Learn More</a>
+		</div>
+		<div class="card">
+			<h2>Internships Resources</h2>
+            <ul style="margin-bottom: 20px;">
+              <li><a target="_blank" href="https://www.linkedin.com/">Linkedin</a></li>
+              <li><a target="_blank" href="https://www.laguardia.edu/careerservices/job-posting/">LaGcc Job Postings</a></li>
+              <li><a target="_blank" href="https://www.indeed.com/">Indeed</a></li>
+            </ul>
+		</div>
+	</div>
+</body>
+</html>
