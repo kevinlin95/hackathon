@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Hackathon</title>
+  </head>
+  <body>
+    <h1>We Do Need a Name</h1>
+    <form method="POST" action="/search">
+      <input type="text" name="service" placeholder="What's your question?">
+      <input type="submit" value="Submit">
+    </form>
+    {% if query %}
+      <h2>Results for "{{ query }}"</h2>
+      <p>{{ results }}</p>
+    {% endif %}
+  </body>
+</html>

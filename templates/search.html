@@ -1,0 +1,12 @@
+{% block content %}
+    <h1>Answer:</h1>
+    <p>{{ answer }}</p>
+    {% if service_links %}
+        <h2>Related Services:</h2>
+        <ul>
+        {% for service, link in service_links %}
+            <li><a href="{{ link }}">{{ service }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
