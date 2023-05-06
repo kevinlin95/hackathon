@@ -1,8 +1,10 @@
 {% block content %}
     <h1>Answer:</h1>
     <p>{{ answer }}</p>
-    {% if service_links %}
+    {% if service_link_title %}
         <h2>Related Services:</h2>
+    {% endif %}
+    {% if service_links %}
         <ul>
         {% for service, link in service_links %}
             <li><a href="{{ link }}">{{ service }}</a></li>
