@@ -12,19 +12,25 @@ search_bp = Blueprint('search', __name__)
 
 # Dictionary mapping services to URLs
 services = {
-    "Tutoring": "https://www.laguardia.edu/Tutoring/",
-    "Financial Aid": "https://www.laguardia.edu/Financial-Aid/",
-    "Academic Advising": "https://www.laguardia.edu/Academic-Advising/",
-    "Career Services": "https://www.laguardia.edu/Career-Services/"
+    "Tutor": "https://www.laguardia.edu/current-students/academic-help-tutoring/",
+    "Financial": "https://www.laguardia.edu/financialaid/",
+    "Academic": "https://www.laguardia.edu/advising/",
+    "Career": "https://www.laguardia.edu/Career-Services/",
+    "MEC":"https://www.laguardia.edu/mec/home/",
+    "Writing":"https://www.laguardia.edu/writingcenter/",
+    "API":"https://www.laguardia.edu/academics/programs/api/meet-our-tutors/",
+    "Wellness":"https://www.laguardia.edu/wellnesscenter/",
+    "Calender":"https://www.laguardia.edu/uploadedfiles/main_site/content/academics/academic_calendar/pdf/academic-calendar-2022-23.pdf"
 }
 
 internship_resources = [
     ["LinkedIn", "https://www.linkedin.com/"],
-    ["LAGCC Job Postings", "https://www.laguardia.edu/careerservices/job-posting/"]
+    ["LAGCC Job Postings", "https://www.laguardia.edu/careerservices/job-posting/"],
+    ["Indeed","https://www.indeed.com/"],
 ]
 
 # Prompt to use for the ChatGPT API
-prompt = "I want you to act as a LaGuardia Community College mentor. You must be friendly and polite. Your job is to quickly guide students to the information and resources they are looking for. Please jump straight to the answer, and do not include any unnecessary phrases or introductions. Only respond to academic searches related to LaGuardia Community College. Otherwise, please respond with 'No available resources'."
+prompt = "I want you to act as a LaGuardia Community College adviser. You must be friendly and polite. These are the only resources that you can show them "+str(services)
 
 
 @search_bp.route('/search', methods=["GET", "POST"])
@@ -58,14 +64,18 @@ def search():
         return render_template('error.html', error="Invalid API key for OpenAI. Please check your .env file.")
 
     # Check if the answer matches one of the services in the dictionary
-    service_links = []
-    for word in answer.lower().split():
-        if word in available_services:
-            # If it does, add a link to the corresponding service
-            keyname = list(services.keys())[available_services.index(word)]
-            service_links.append((word.capitalize(), services[keyname]))
-    service_links = list(set(service_links))
-    service_link_title = True if service_links else False
+    answer: str = response.choices[0].text.strip()
+    urls = re.findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+[/\w\d_?&=#%+()~.,!:-]*', answer)
+    # print(urls)
+    strlist = []
+    j = 0
+    if urls!= []:
+        for i in urls:
+            index = answer.find(i)
+            # print(index)
+            strlist += [answer[j:index]]
+            j = index + len(i)
+    strlist += [answer[j:]]
 
     # Render the template with the answer and service links
-    return render_template('search.html', answer=answer, service_link_title=service_link_title, service_links=service_links)
+    return render_template('search.html', answer=answer, stringlist = strlist, urls = urls, len = len(urls))

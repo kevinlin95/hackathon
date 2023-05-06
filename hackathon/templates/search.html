@@ -1,14 +1,21 @@
 {% block content %}
     <h1>Answer:</h1>
-    <p>{{ answer }}</p>
+    {% for i in range(len) %}
+<p>{{ stringlist[i] }}<a href="{{ urls[i] }}" target="_blank">{{ urls[i] }}</a></p>
+    {%endfor %}
+    <p>{{ stringlist[-1] }}</p>
+<!--    <p>{{ answer }}</p>-->
     {% if service_link_title %}
         <h2>Related Services:</h2>
     {% endif %}
     {% if service_links %}
         <ul>
         {% for service, link in service_links %}
-            <li><a href="{{ link }}">{{ service }}</a></li>
+            <li><a href="{{ link }}" target="_blank">{{ service }}</a></li>
         {% endfor %}
+            {% if c_s %}
+                <li>There's a computer science group on linkedin too!</li>
+            {% endif %}
         </ul>
     {% endif %}
 {% endblock %}
