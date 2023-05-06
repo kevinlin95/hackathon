@@ -39,6 +39,8 @@ def search():
     available_services = [_.lower() for _ in services.keys()]
     if "service" in request.form:
         service = request.form["service"]
+        if str(service) == "":
+            return render_template('resource.html')
         if service.lower() in available_services:
             keyname = list(services.keys())[available_services.index(service.lower())]
             return redirect(services[keyname])
