@@ -47,7 +47,7 @@ def search():
             return redirect(services[keyname])
 
         if "internship" in service.lower():
-            return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources)
+            return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources, gpt = False)
 
     if "audio_file" in request.form:
         audio_base64 = request.form["audio_file"]
@@ -78,4 +78,4 @@ def search():
     strlist += [answer[j:]]
 
     # Render the template with the answer and service links
-    return render_template('search.html', answer=answer, stringlist = strlist, urls = urls, len = len(urls))
+    return render_template('search.html', answer=answer, stringlist = strlist, urls = urls, len = len(urls), gpt = True)
