@@ -1,5 +1,6 @@
 import logging
 import pathlib
+import platform
 
 import waitress
 from tap import Tap
@@ -21,18 +22,31 @@ class ServerType(Tap):
 if __name__ == '__main__':
 
     pathlib.Path('ffmpeg').mkdir(exist_ok=True)
-    if not pathlib.Path('ffmpeg/ffmpeg.exe').exists():
+    platform_name = platform.system()
+    if platform_name == 'Windows':
+        executable = pathlib.Path('ffmpeg/ffmpeg.exe')
+        download_url = 'https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip'
+    elif platform_name == 'Darwin':
+        executable = pathlib.Path('ffmpeg/ffmpeg-darwin')
+        download_url = 'https://evermeet.cx/ffmpeg/ffmpeg-6.0.zip'
+
+    if not executable.exists():
         print("FFmpeg not found, downloading...")
         import io
         import zipfile
+
         import requests
 
-        r = requests.get('https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip')
+        r = requests.get(download_url)
         temp = io.BytesIO(r.content)
         with zipfile.ZipFile(temp) as z:
-            z.extract('ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe', 'ffmpeg')
-        pathlib.Path('ffmpeg/ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe').rename('ffmpeg/ffmpeg.exe')
-        pathlib.Path('ffmpeg/ffmpeg-master-latest-win64-gpl').rmdir()
+            if platform_name == 'Windows':
+                z.extract('ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe', 'ffmpeg')
+                pathlib.Path('ffmpeg/ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe').rename('ffmpeg/ffmpeg.exe')
+                pathlib.Path('ffmpeg/ffmpeg-master-latest-win64-gpl/bin').rmdir()
+                pathlib.Path('ffmpeg/ffmpeg-master-latest-win64-gpl').rmdir()
+            elif platform_name == 'Darwin':
+                z.extract('ffmpeg', 'ffmpeg')
 
     args = ServerType().parse_args()
     if args.production:

@@ -1,3 +1,4 @@
+import platform
 from io import BytesIO
 
 import openai
@@ -7,11 +8,13 @@ from pydub import AudioSegment
 from config import Config
 
 openai.api_key = Config.OPENAI_API_KEY
-AudioSegment.converter = "ffmpeg/ffmpeg.exe"
+if platform.system() == "Windows":
+    AudioSegment.converter = "ffmpeg/ffmpeg.exe"
+elif platform.system() == "Darwin":
+    AudioSegment.converter = "ffmpeg/ffmpeg-darwin"
 
 
-def speech_to_text(audio: BytesIO):
-
+def speech_to_text(audio: BytesIO, language: str = "en-US"):
     r = sr.Recognizer()
     sound = AudioSegment.from_file(audio, format="wav")
     to_wav = BytesIO()
@@ -19,12 +22,11 @@ def speech_to_text(audio: BytesIO):
     to_wav.seek(0)
     with sr.AudioFile(to_wav) as source:
         audio = r.record(source)
-    text = r.recognize_google(audio)
+    text = r.recognize_google(audio, language=language)
     return text
 
 
 def ask_chat_gpt(prompt: str):
-    print(prompt)
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=prompt + "\nStudent question: " + prompt + "\n",
@@ -34,5 +36,4 @@ def ask_chat_gpt(prompt: str):
         frequency_penalty=0,
         presence_penalty=0
     )
-    print(response)
     return response.choices[0].text.strip()
