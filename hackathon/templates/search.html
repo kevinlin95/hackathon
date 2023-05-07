@@ -7,10 +7,12 @@
 <body>
 {% block content %}
     <h1>Prompt:</h1>
-    {% for i in range(len) %}
-        <h3>{{ stringlist[i] }}<a href="{{ urls[i] }}" target="_blank">{{ urls[i] }}</a></h3>
-    {%endfor %}
-    <h3>{{ stringlist[-1] }}</h3>
+    {% if gpt %}
+        {% for i in range(len) %}
+            <h3>{{ stringlist[i] }}<a href="{{ urls[i] }}" target="_blank">{{ urls[i] }}</a></h3>
+        {%endfor %}
+        <h3>{{ stringlist[-1] }}</h3>
+    {% endif %}
     {% if service_link_title %}
         <h2>Related Services:</h2>
     {% endif %}
