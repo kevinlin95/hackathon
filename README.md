@@ -1,4 +1,4 @@
-#<h1 align="center">LaGuardia Express Search</h1>
+<h1 align="center">LaGuardia Express Search</h1>
 
 LaGuardia Express Search is a powerful tool designed to help LaGuardia Community College students quickly find the information and resources they need. Our application offers both text-based search and speech-to-text search capabilities for English, Spanish, and Chinese languages.
 
