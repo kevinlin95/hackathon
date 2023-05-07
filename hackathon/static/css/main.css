@@ -51,3 +51,29 @@ h1 {
   }
 }
 
+.record_button {
+  position: relative;
+  background-color: red;
+  color: white;
+  font-size: 24px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.record_button:before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.record_button:hover {
+  transform: scale(1.1);
+}
+
+.record_button:active {
+  transform: scale(0.9);
+}
+
+
+
