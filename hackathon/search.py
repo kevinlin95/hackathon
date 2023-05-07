@@ -40,27 +40,36 @@ def search():
     if "service" in request.form:
         service = request.form["service"]
 
-        if service.lower() in available_services:
-            keyname = list(services.keys())[available_services.index(service.lower())]
-            return redirect(services[keyname])
+        # Won't work since async
+        # if service.lower() in available_services:
+        #     keyname = list(services.keys())[available_services.index(service.lower())]
+        #     return redirect(services[keyname])
 
-        if "internship" in service.lower():
-            return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources, gpt=False)
+        # if "internship" in service.lower():
+        #     return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources, gpt=False)
 
     language = request.form["language"]
+    speech = ""
 
-    if "audio_file" in request.form:
+    if "audio_file" in request.form and request.form["audio_file"] != "":
         audio_base64 = request.form["audio_file"]
         audio = BytesIO(b64decode(audio_base64))
         try:
             speech_language = models.LanguageModel.__dict__[language]
             service = speech_to_text(audio, speech_language)
+            speech = service
         except sr.UnknownValueError:
             return render_template('error.html', error="Google Speech Recognition could not understand audio")
         except sr.RequestError as e:
             return render_template('error.html', error="Could not request results from Google Speech Recognition service; {0}".format(e))
-    if str(service) == "":
-        return render_template('resource.html')
+
+    if not service:
+        reply = {
+            "status": 302,
+            "url": "/resources"
+        }
+        return reply
+
     initial_prompt = models.InitialPrompt.__dict__[language] + str(services)
     try:
         answer = ask_chat_gpt(initial_prompt + service + "\n")
@@ -78,4 +87,13 @@ def search():
     strlist += [answer[j:]]
 
     # Render the template with the answer and service links
-    return render_template('search.html', answer=answer, stringlist=strlist, urls=urls, len=len(urls), gpt=True)
+    reply = {
+        "status": 200,
+        "answer": answer.strip("Answer: "),
+        "stringlist": strlist,
+        "urls": urls,
+        "len": len(urls),
+        "gpt": True,
+        "speech": speech
+    }
+    return reply
