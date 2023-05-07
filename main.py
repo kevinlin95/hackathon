@@ -28,7 +28,7 @@ if __name__ == '__main__':
         executable = pathlib.Path('ffmpeg/ffmpeg.exe')
         download_url = 'https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip'
     elif platform_name == 'Darwin':
-        executable = pathlib.Path('ffmpeg/ffmpeg-darwin')
+        executable = pathlib.Path('ffmpeg/ffmpeg')
         download_url = 'https://evermeet.cx/ffmpeg/ffmpeg-6.0.zip'
 
     if executable and not executable.exists():
