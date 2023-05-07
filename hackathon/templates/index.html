@@ -17,12 +17,23 @@
     <li><a href="https://www.laguardia.edu/uploadedfiles/main_site/content/academics/academic_calendar/pdf/academic-calendar-2022-23.pdf" class="nav-link px-2" style="color:white">Academic Calendar</a></li>
     <li><a href="https://www.laguardia.edu/wellnesscenter/" class="nav-link px-2" style="color:white">Wellness Center</a></li>
 </ul>
-<marquee>Welcome to our website.</marquee>
 
-<div class="container">
-    <img src="../static/assets/logo-laguardia-community-college-long.svg" alt="LaGuardia Community College Logo" style="display:block; margin-left:auto; margin-right:auto; height:200px; width:200px;">
-    <h1>LaGuardia Express Search</h1>
-    <center>Welcome to the LaGuardia Express Search! This is your one-stop tool to quickly find information and resources about LaGuardia Community College. Simply type or speak your academic question or keywords in the search bar. Our search engine will provide you with the most relevant links to LaGuardia's tutoring, financial aid, academic advising, career services, and more. </center>
+<table style="width:100%">
+  <tr>
+    <td style="width:50%; text-align:left;">
+      <img src="../static/assets/logo-laguardia-community-college-long.svg" alt="LaGuardia Community College Logo" style="height:100px; width:800px;">
+    </td>
+    <td style="width:50%; text-align:right;">
+      <img src="../static/assets/logo.png" alt="Team Bee Logo" style="height:300px; width:300px;">
+    </td>
+  </tr>
+</table>
+
+<h1>LaGuardia Express Search</h1>
+<center>
+  <p>Welcome to the LaGuardia Express Search! This is your one-stop tool to quickly find information and resources about LaGuardia Community College. Simply type or speak your academic question or keywords in the search bar. Our search engine will provide you with the most relevant links to LaGuardia's tutoring, financial aid, academic advising, career services, and more. </p>
+</center>
+
 <form method="POST" action="/search" id="form">
     <select name="language">
         <option value="en_US">English</option>
