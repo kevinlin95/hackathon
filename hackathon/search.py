@@ -1,13 +1,12 @@
-import re
-from base64 import b64decode
 from io import BytesIO
-
-import speech_recognition as sr
-from flask import Blueprint, redirect, render_template, request
+from base64 import b64decode
 from openai.error import AuthenticationError
-
-import hackathon.models as models
 from hackathon.utils import ask_chat_gpt, speech_to_text
+from flask import Blueprint, redirect, render_template, request
+
+import re
+import speech_recognition as sr
+import hackathon.models as models
 
 search_bp = Blueprint('search', __name__)
 
@@ -16,12 +15,12 @@ services = {
     "Tutor": "https://www.laguardia.edu/current-students/academic-help-tutoring/",
     "Financial": "https://www.laguardia.edu/financialaid/",
     "Academic": "https://www.laguardia.edu/advising/",
-    "Career": "https://www.laguardia.edu/Career-Services/",
+    "Career": "https://www.laguardia.edu/careerservices/",
     "MEC": "https://www.laguardia.edu/mec/home/",
     "Writing": "https://www.laguardia.edu/writingcenter/",
     "API": "https://www.laguardia.edu/academics/programs/api/meet-our-tutors/",
     "Wellness": "https://www.laguardia.edu/wellnesscenter/",
-    "Calender": "https://www.laguardia.edu/uploadedfiles/main_site/content/academics/academic_calendar/pdf/academic-calendar-2022-23.pdf"
+    "Calendar": "https://www.laguardia.edu/uploadedfiles/main_site/content/academics/academic_calendar/pdf/academic-calendar-2022-23.pdf"
 }
 
 internship_resources = [
