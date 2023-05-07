@@ -39,8 +39,7 @@ def search():
     available_services = [_.lower() for _ in services.keys()]
     if "service" in request.form:
         service = request.form["service"]
-        if str(service) == "":
-            return render_template('resource.html')
+
         if service.lower() in available_services:
             keyname = list(services.keys())[available_services.index(service.lower())]
             return redirect(services[keyname])
@@ -60,7 +59,8 @@ def search():
             return render_template('error.html', error="Google Speech Recognition could not understand audio")
         except sr.RequestError as e:
             return render_template('error.html', error="Could not request results from Google Speech Recognition service; {0}".format(e))
-
+    if str(service) == "":
+        return render_template('resource.html')
     initial_prompt = models.InitialPrompt.__dict__[language] + str(services)
     try:
         answer = ask_chat_gpt(initial_prompt + service + "\n")
