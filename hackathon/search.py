@@ -44,8 +44,6 @@ def search():
         #     keyname = list(services.keys())[available_services.index(service.lower())]
         #     return redirect(services[keyname])
 
-    internship = True if "internship" in service.lower() else False
-    cs = True if "computer science" in service.lower() else False
         #     return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources, gpt=False)
 
     language = request.form["language"]
@@ -62,7 +60,8 @@ def search():
             return render_template('error.html', error="Google Speech Recognition could not understand audio")
         except sr.RequestError as e:
             return render_template('error.html', error="Could not request results from Google Speech Recognition service; {0}".format(e))
-
+    internship = True if "internship" in service.lower() else False
+    cs = True if "computer science" in service.lower() else False
     if not service:
         reply = {
             "status": 302,
