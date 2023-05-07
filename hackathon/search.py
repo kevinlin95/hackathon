@@ -44,7 +44,7 @@ def search():
         #     keyname = list(services.keys())[available_services.index(service.lower())]
         #     return redirect(services[keyname])
 
-        # if "internship" in service.lower():
+    internship = True if "internship" in service.lower() else False
         #     return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources, gpt=False)
 
     language = request.form["language"]
@@ -93,6 +93,8 @@ def search():
         "urls": urls,
         "len": len(urls),
         "gpt": True,
-        "speech": speech
+        "speech": speech,
+        "internship":internship,
+        "internship_resources":internship_resources
     }
     return reply
