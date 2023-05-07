@@ -34,8 +34,6 @@
 <h1>LaGuardia Express Search</h1>
 <center>
   <p>Welcome to the LaGuardia Express Search! This is your one-stop tool to quickly find information and resources about LaGuardia Community College. Simply type or speak your academic question or keywords in the search bar. Our search engine will provide you with the most relevant links to LaGuardia's tutoring, financial aid, academic advising, career services, and more. </p>
-</center>
-
 <form method="POST" action="/search" id="form">
     <select name="language">
         <option value="en_US">English</option>
@@ -53,15 +51,17 @@
     <button id="submit-button" value="Submit">Submit</button>
     <input type="text" hidden name="audio_file" id="audio_file" value="">
 </form>
+<br>
 <p id="speech" hidden></p>
 <div class="content">
-<div class="mic" hidden>
-    <i class="fas fa-microphone"></i>
+    <br>
+    <div class="mic" hidden>
+        <i class="fas fa-microphone"></i>
+    </div>
 </div>
-</div>
-<br>
 <div id="results" style="display: none;">
 </div>
+</center>
 <div id="spinner" style="display: none;">
     <span class="loader"></span>
 </div>
