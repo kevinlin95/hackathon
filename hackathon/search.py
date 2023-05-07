@@ -22,7 +22,8 @@ services = {
     "API": "https://www.laguardia.edu/academics/programs/api/meet-our-tutors/",
     "Wellness": "https://www.laguardia.edu/wellnesscenter/",
     "Calendar": "https://www.laguardia.edu/uploadedfiles/main_site/content/academics/academic_calendar/pdf/academic-calendar-2022-23.pdf",
-    "Safety":"https://www.laguardia.edu/publicsafety/",
+    "Safety": "https://www.laguardia.edu/publicsafety/",
+    "Library": "https://library.laguardia.edu/",
 }
 
 internship_resources = [
