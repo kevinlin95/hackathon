@@ -100,6 +100,29 @@ function handleReply(response, isSpeech) {
         speech.innerHTML = "You asked: " + response.speech + "<br>";
     }
 
+    let internship = response.internship
+    let internlist = response.internship_resources
+
+    if(internship){
+        let ul = document.createElement("ul");
+        ul.innerHTML = "These are the links that you can find intenships!";
+        for(int i=0;i<internlist.length;i++){
+            let li = document.createElement("li");
+            let a = document.createElement("a");
+            a.href = internlist[i][1];
+            a.target = "_blank";
+            a.innerHTML = internlist[i][0];
+            li.appendChild(a);
+            ul.appendChild(li);
+        }
+        result.appendChild(ul)
+        if(c_s){
+            let li = document.createElement("li");
+            li.innerHTML = "There's also a computer science and engineering group in linkdin! Search for Computer Majors - LaGuardia Community College";
+            result.appendChild(li)
+        }
+    }
+
     if (gpt) {
         for (let i = 0; i < len; i++) {
             let h3 = document.createElement("h3");
@@ -137,7 +160,9 @@ function handleReply(response, isSpeech) {
         result.appendChild(ul);
     }
 
+
     spinner.style.display = "none";
     submitButton.disabled = false;
     record.disabled = false;
+
 }
