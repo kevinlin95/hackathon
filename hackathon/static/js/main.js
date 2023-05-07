@@ -1,6 +1,7 @@
+const record = document.getElementById("microphone");
+
 document.addEventListener("DOMContentLoaded", function(event) { 
-    let record, audioContext, gumStream, input;
-    record = document.getElementById("record");
+    let audioContext, gumStream, input;
     record.onmousedown = e => {
         navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
             audioContext = new AudioContext();
@@ -11,10 +12,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             })
             rec.record();
         })
-        record.style.backgroundColor = "blue"
+        record.style.backgroundColor = "red"
     }
     record.onmouseup = e => {
-        record.style.backgroundColor = "red"
+        record.style.backgroundColor = ""
         rec.stop();
         gumStream.getAudioTracks()[0].stop();
         rec.exportWAV(createDownloadLink);
@@ -72,7 +73,7 @@ submitButton.addEventListener("click", e => {
 });
 
 function handleReply(response, isSpeech) {
-    console.log(response);
+
     if (response.status == 302) {
         window.location.href = window.location.origin + response.url;
     }
