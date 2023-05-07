@@ -1,13 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Prompt</title>
+</head>
+<body>
 {% block content %}
-    <h1>Answer:</h1>
+    <h1>Prompt:</h1>
     {% for i in range(len) %}
-<p>{{ stringlist[i] }}<a href="{{ urls[i] }}" target="_blank">{{ urls[i] }}</a></p>
+        <h3>{{ stringlist[i] }}<a href="{{ urls[i] }}" target="_blank">{{ urls[i] }}</a></h3>
     {%endfor %}
-    <p>{{ stringlist[-1] }}</p>
-<!--    <p>{{ answer }}</p>-->
+    <h3>{{ stringlist[-1] }}</h3>
     {% if service_link_title %}
         <h2>Related Services:</h2>
     {% endif %}
+
     {% if service_links %}
         <ul>
         {% for service, link in service_links %}
@@ -19,3 +26,5 @@
         </ul>
     {% endif %}
 {% endblock %}
+</body>
+</html>
