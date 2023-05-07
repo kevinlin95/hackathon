@@ -1,20 +1,45 @@
 const record = document.getElementById("microphone");
+const mic = document.querySelector('.mic');
 
 document.addEventListener("DOMContentLoaded", function(event) { 
-    let audioContext, gumStream, input;
+    let audioContext, micContext, gumStream, input;
+
     record.onmousedown = e => {
         navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
+            mic.hidden = false;
             audioContext = new AudioContext();
+            
+            micContext = new (window.AudioContext || window.webkitAudioContext)();
+            let analyser = micContext.createAnalyser();
+            
+            analyser.minDecibels = -90;
+            analyser.maxDecibels = -10;
+            analyser.fftSize = 256;
+
             input = audioContext.createMediaStreamSource(stream);
             gumStream = stream;
             rec = new Recorder(input, {
                 numChannels: 1
             })
             rec.record();
+
+            tracks = stream.getTracks();
+            input2 = micContext.createMediaStreamSource(stream);
+            input2.connect(analyser);
+
+            requestAnimationFrame(function log() {
+                let bufferLength = analyser.frequencyBinCount;
+                let dataArray = new Uint8Array(bufferLength);
+                analyser.getByteFrequencyData(dataArray);
+                const level = Math.max.apply(null, dataArray);
+                mic.style.setProperty('--border', `${level / 5}px`);
+                requestAnimationFrame(log);
+            });
         })
         record.style.backgroundColor = "red"
     }
     record.onmouseup = e => {
+        mic.hidden = true;
         record.style.backgroundColor = ""
         rec.stop();
         gumStream.getAudioTracks()[0].stop();
