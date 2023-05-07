@@ -105,9 +105,6 @@ function displayResults(response, isSpeech) {
     speech.hidden = true;
     speech.innerHTML = "";
 
-    let result_header = document.getElementById("result-header");
-    result_header.style.display = "block";
-
     if (isSpeech) {
         let speech = document.getElementById("speech");
         speech.hidden = false;

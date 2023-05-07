@@ -101,6 +101,7 @@ def search():
             "error": "Invalid API key for OpenAI. Please check your .env file."
         }
         return reply
+    answer = answer.replace("Answer: ", "")
 
     # Check if the answer matches one of the services in the dictionary
     urls = re.findall(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+[/\w\d_?&=#%+()~.,!:-]*', answer)
