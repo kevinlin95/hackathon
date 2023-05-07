@@ -5,6 +5,9 @@
     <title>LGCC  Explorer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"></script>
 </head>
 <body style="background-color:#FFFFFF">
 
@@ -18,25 +21,27 @@
 </ul>
 <marquee>Welcome to our website.</marquee>
 
-<!--<img-->
-<!--        src="../static/assets/logo-laguardia-community-college-long.svg"-->
-<!--        alt="LaGuardia Community College Logo"-->
-<!--        style="height:200px; width:200px;-->
-<!--            margin: 0;"/>-->
-
 <div class="container">
-
-<h1>LaGuardia Express Search</h1>
+    <img src="../static/assets/logo-laguardia-community-college-long.svg" alt="LaGuardia Community College Logo" style="display:block; margin-left:auto; margin-right:auto; height:200px; width:200px;">
+    <h1>LaGuardia Express Search</h1>
 <form method="POST" action="/search" id="form">
     <select name="language">
         <option value="en_US">English</option>
         <option value="es_ES">Spanish</option>
         <option value="zh_TW">Chinese</option>
     </select>
-    <input type="text" name="service" placeholder="What's your question?">
+    <input type="text" name="service" placeholder="What is your question?"
+           style="height: 44px; width: 600px; padding: 10px 50px 10px 16px; font-size: 16px;
+              border: 1px solid #ddd; border-radius: 24px;
+              box-shadow: 0px 1px 6px rgba(32, 33, 36, 0.28);
+              background-image: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-mic-512.png');
+              background-repeat: no-repeat; background-position: 10px center;
+              background-size: 24px 24px;">
+
     <button id="submit-button" value="Submit">Submit</button>
     <input type="text" hidden name="audio_file" id="audio_file" value="">
     <button id="record" class="record_button">Record</button>
+
 </form>
 <p id="speech" hidden></p>
 <br>
@@ -62,7 +67,7 @@
                    <div id="faqCollapseOne" class="accordion-collapse collapse" aria-labelledby="faqHeadingOne"
                         data-bs-parent="#faqAccordion">
                        <div class="accordion-body">
-                           To use the voice search feature, click on the microphone icon and speak your query. You can also type
+                           To use the voice search feature, click and hold on the microphone icon and speak your query. You can also type
                            your query into the search bar and press enter.
                        </div>
                    </div>
@@ -110,9 +115,6 @@
         <p class="text-center text-body-secondary">2023 Team Bee, All Rights Reserved</p>
     </footer>
 </div>
-<script>
-
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
