@@ -1,12 +1,13 @@
-from io import BytesIO
-from base64 import b64decode
-from openai.error import AuthenticationError
-from hackathon.utils import ask_chat_gpt, speech_to_text
-from flask import Blueprint, redirect, render_template, request
-
 import re
+from base64 import b64decode
+from io import BytesIO
+
 import speech_recognition as sr
+from flask import Blueprint, redirect, request
+from openai.error import AuthenticationError
+
 import hackathon.models as models
+from hackathon.utils import ask_chat_gpt, speech_to_text
 
 search_bp = Blueprint('search', __name__)
 
@@ -35,16 +36,21 @@ def search():
     if request.method == 'GET':
         return redirect('/')
 
-    available_services = [_.lower() for _ in services.keys()]
+    reply = {
+        "status": 200,
+        "url": "",
+        "answer": "",
+        "stringlist": [],
+        "urls": [],
+        "len": 0,
+        "speech": "",
+        "internship": False,
+        "internship_resources": internship_resources,
+        "c_s": False
+    }
+
     if "service" in request.form:
         service = request.form["service"]
-
-        # Won't work since async
-        # if service.lower() in available_services:
-        #     keyname = list(services.keys())[available_services.index(service.lower())]
-        #     return redirect(services[keyname])
-
-        #     return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources, gpt=False)
 
     language = request.form["language"]
     speech = ""
@@ -57,23 +63,42 @@ def search():
             service = speech_to_text(audio, speech_language)
             speech = service
         except sr.UnknownValueError:
-            return render_template('error.html', error="Google Speech Recognition could not understand audio")
+            reply = {
+                "status": 400,
+                "error": "Google Speech Recognition could not understand audio"
+            }
+            return reply
         except sr.RequestError as e:
-            return render_template('error.html', error="Could not request results from Google Speech Recognition service; {0}".format(e))
+            reply = {
+                "status": 500,
+                "error": f"Could not request results from Google Speech Recognition service; {e}"
+            }
+            return reply
+
     internship = True if "internship" in service.lower() else False
     cs = True if "computer science" in service.lower() else False
+
+    reply["internship"] = internship
+    reply["c_s"] = cs
+    reply["speech"] = speech
+
+    if internship:
+        return reply
+
     if not service:
-        reply = {
-            "status": 302,
-            "url": "/resources"
-        }
+        reply["status"] = 302
+        reply["url"] = "/resources"
         return reply
 
     initial_prompt = models.InitialPrompt.__dict__[language] + str(services)
     try:
         answer = ask_chat_gpt(initial_prompt + service + "\n")
     except AuthenticationError:
-        return render_template('error.html', error="Invalid API key for OpenAI. Please check your .env file.")
+        reply = {
+            "status": 500,
+            "error": "Invalid API key for OpenAI. Please check your .env file."
+        }
+        return reply
 
     # Check if the answer matches one of the services in the dictionary
     urls = re.findall(r'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+[/\w\d_?&=#%+()~.,!:-]*', answer)
@@ -86,16 +111,10 @@ def search():
     strlist += [answer[j:]]
 
     # Render the template with the answer and service links
-    reply = {
-        "status": 200,
-        "answer": answer.strip("Answer: "),
+    reply.update({
+        "answer": answer,
         "stringlist": strlist,
         "urls": urls,
-        "len": len(urls),
-        "gpt": True,
-        "speech": speech,
-        "internship":internship,
-        "internship_resources":internship_resources,
-        "c_s":cs
-    }
+        "len": len(urls)
+    })
     return reply

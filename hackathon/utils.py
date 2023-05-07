@@ -11,7 +11,7 @@ openai.api_key = Config.OPENAI_API_KEY
 if platform.system() == "Windows":
     AudioSegment.converter = "ffmpeg/ffmpeg.exe"
 elif platform.system() == "Darwin":
-    AudioSegment.converter = "ffmpeg/ffmpeg-darwin"
+    AudioSegment.converter = "ffmpeg/ffmpeg"
 
 
 def speech_to_text(audio: BytesIO, language: str = "en-US"):
