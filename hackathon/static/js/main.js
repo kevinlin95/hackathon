@@ -105,8 +105,8 @@ function handleReply(response, isSpeech) {
 
     if(internship){
         let ul = document.createElement("ul");
-        ul.innerHTML = "These are the links that you can find intenships!";
-        for(int i=0;i<internlist.length;i++){
+        ul.innerHTML = "These are the links that you can find internships!";
+        for(let i=0;i<internlist.length;i++){
             let li = document.createElement("li");
             let a = document.createElement("a");
             a.href = internlist[i][1];
@@ -118,48 +118,48 @@ function handleReply(response, isSpeech) {
         result.appendChild(ul)
         if(c_s){
             let li = document.createElement("li");
-            li.innerHTML = "There's also a computer science and engineering group in linkdin! Search for Computer Majors - LaGuardia Community College";
+            li.innerHTML = "There's also a computer science and engineering group in linkedin! Search for Computer Majors - LaGuardia Community College";
             result.appendChild(li)
         }
-    }
+    }else{
 
-    if (gpt) {
-        for (let i = 0; i < len; i++) {
+        if (gpt) {
+            for (let i = 0; i < len; i++) {
+                let h3 = document.createElement("h3");
+                h3.innerHTML = stringlist[i];
+                let a = document.createElement("a");
+                a.href = urls[i];
+                a.target = "_blank";
+                a.innerHTML = urls[i];
+                h3.appendChild(a);
+                result.appendChild(h3);
+            }
             let h3 = document.createElement("h3");
-            h3.innerHTML = stringlist[i];
-            let a = document.createElement("a");
-            a.href = urls[i];
-            a.target = "_blank";
-            a.innerHTML = urls[i];
-            h3.appendChild(a);
+            h3.innerHTML = stringlist[len];
             result.appendChild(h3);
         }
-        let h3 = document.createElement("h3");
-        h3.innerHTML = stringlist[len];
-        result.appendChild(h3);
-    }
 
-    if (service_link_title) {
-        let h2 = document.createElement("h2");
-        h2.innerHTML = "Related Services:";
-        result.appendChild(h2);
-    }
-
-    if (service_links) {
-        let ul = document.createElement("ul");
-
-        for (let i = 0; i < service_links.length; i++) {
-            let li = document.createElement("li");
-            let a = document.createElement("a");
-            a.href = service_links[i][1];
-            a.target = "_blank";
-            a.innerHTML = service_links[i][0];
-            li.appendChild(a);
-            ul.appendChild(li);
+        if (service_link_title) {
+            let h2 = document.createElement("h2");
+            h2.innerHTML = "Related Services:";
+            result.appendChild(h2);
         }
-        result.appendChild(ul);
-    }
 
+        if (service_links) {
+            let ul = document.createElement("ul");
+
+            for (let i = 0; i < service_links.length; i++) {
+                let li = document.createElement("li");
+                let a = document.createElement("a");
+                a.href = service_links[i][1];
+                a.target = "_blank";
+                a.innerHTML = service_links[i][0];
+                li.appendChild(a);
+                ul.appendChild(li);
+            }
+            result.appendChild(ul);
+        }
+    }
 
     spinner.style.display = "none";
     submitButton.disabled = false;

@@ -45,6 +45,7 @@ def search():
         #     return redirect(services[keyname])
 
     internship = True if "internship" in service.lower() else False
+    cs = True if "computer science" in service.lower() else False
         #     return render_template('search.html', answer="Here are some internship resources:", service_links=internship_resources, gpt=False)
 
     language = request.form["language"]
@@ -95,6 +96,7 @@ def search():
         "gpt": True,
         "speech": speech,
         "internship":internship,
-        "internship_resources":internship_resources
+        "internship_resources":internship_resources,
+        "c_s":cs
     }
     return reply
