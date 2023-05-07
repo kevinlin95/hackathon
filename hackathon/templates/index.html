@@ -8,17 +8,18 @@
 </head>
 <body style="background-color:#FFFFFF">
 
-<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" style="background-color:#c8242c">
     <li><a href="{{ url_for('index.home') }}" class="nav-link px-2 link-secondary" style="color:black">Home</a></li>
-    <li><a href="https://mail.lagcc.cuny.edu/viplogin/Default.aspx" class="nav-link px-2">My LaGuardia</a></li>
-    <li><a href="https://www.laguardia.edu/current-students/academic-help-tutoring/" class="nav-link px-2">Tutoring Center</a></li>
-    <li><a href="https://www.laguardia.edu/uploadedfiles/main_site/content/academics/academic_calendar/pdf/academic-calendar-2022-23.pdf" class="nav-link px-2">Academic Calendar</a></li>
-    <li><a href="https://www.laguardia.edu/wellnesscenter/" class="nav-link px-2">Wellness Center</a></li>
+    <li><a href="{{ url_for('resource.resources') }}" class="nav-link px-2" style="color:white">Resources</a></li>
+    <li><a href="https://mail.lagcc.cuny.edu/viplogin/Default.aspx" class="nav-link px-2" style="color:white">My LaGuardia</a></li>
+    <li><a href="https://www.laguardia.edu/current-students/academic-help-tutoring/" class="nav-link px-2" style="color:white">Tutoring Center</a></li>
+    <li><a href="https://www.laguardia.edu/uploadedfiles/main_site/content/academics/academic_calendar/pdf/academic-calendar-2022-23.pdf" class="nav-link px-2" style="color:white">Academic Calendar</a></li>
+    <li><a href="https://www.laguardia.edu/wellnesscenter/" class="nav-link px-2" style="color:white">Wellness Center</a></li>
 </ul>
 <img
-        src="../static/assets/LaGuardia_Community_College_logo.png"
+        src="../static/assets/logo-laguardia-community-college-long.svg"
         alt="LaGuardia Community College Logo"
-        style="height:200px; width:200px;
+        style="height:400px; width:400px;
             margin-left: auto;"/>
 
    <div class="container">
@@ -43,7 +44,56 @@
 <div id="spinner" style="display: none;">
     <span class="loader"></span>
 </div>
-
+</div>
+       <div class="container">
+           <h2>Frequently Asked Questions</h2>
+           <div class="accordion" id="faqAccordion">
+               <div class="accordion-item">
+                   <h3 class="accordion-header" id="faqHeadingOne">
+                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                               data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                           How do I use the voice search feature?
+                       </button>
+                   </h3>
+                   <div id="faqCollapseOne" class="accordion-collapse collapse" aria-labelledby="faqHeadingOne"
+                        data-bs-parent="#faqAccordion">
+                       <div class="accordion-body">
+                           To use the voice search feature, click on the microphone icon and speak your query. You can also type
+                           your query into the search bar and press enter.
+                       </div>
+                   </div>
+               </div>
+               <div class="accordion-item">
+                   <h3 class="accordion-header" id="faqHeadingTwo">
+                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                               data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                           How do I change the language of the search results?
+                       </button>
+                   </h3>
+                   <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo"
+                        data-bs-parent="#faqAccordion">
+                       <div class="accordion-body">
+                           You can change the language of the search results by selecting a different language from the
+                           dropdown menu next to the search bar.
+                       </div>
+                   </div>
+               </div>
+               <div class="accordion-item">
+                   <h3 class="accordion-header" id="faqHeadingThree">
+                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                               data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                           How can I access all the resources available to me?
+                       </button>
+                   </h3>
+                   <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree"
+                        data-bs-parent="#faqAccordion">
+                       <div class="accordion-body">
+                           You can access all the resources by clicking <a href="{{ url_for('resource.resources') }}">here</a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
 <div class="container">
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
